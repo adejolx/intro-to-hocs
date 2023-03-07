@@ -6,18 +6,19 @@ import { FlexFooter } from "./components/HOCs/FlexFooter";
 import InputContainer from "./components/InputContainer";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [input, setInput] = useState("");
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
+  };
   return (
     <div className="App wrapper">
       <InputContainer>
         <BaseInput
-          type={"number"}
+          type={"text"}
           display={"block"}
-          onChange={function (event: ChangeEvent<HTMLInputElement>): void {
-            throw new Error("Function not implemented.");
-          }}
-          value={""}
+          onChange={handleChange}
+          value={input}
           size={{
             height: "50",
             width: "100%",
@@ -30,8 +31,8 @@ function App() {
           className="stack-s"
         />
         <FlexFooter>
-          <div>Mininum Amount</div>
-          <div>Available balance</div>
+          <div>Mininum Amount: {input}</div>
+          <div>Available balance: {input}</div>
         </FlexFooter>
       </InputContainer>
     </div>
