@@ -1,0 +1,23 @@
+.wrapper {
+  max-width: 30rem;
+  margin-inline: auto;
+  padding-block: 1em;
+  padding-inline: 1em;
+  border: auto;
+}
+
+.base-input {
+  padding: 0.5rem;
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: space-between; */
+  gap: 25%;
+  align-items: center;
+}
+
+.stack-s > * + * {
+  margin-block-start: 1em;
+}
