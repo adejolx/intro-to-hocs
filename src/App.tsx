@@ -30,7 +30,7 @@ function App() {
           isTrimmable={false}
           className="stack-s"
         />
-        <FlexFooter>
+        <FlexFooter wrap={"nowrap"}>
           <div>Mininum Amount: {input}</div>
           <div>Available balance: {input}</div>
         </FlexFooter>

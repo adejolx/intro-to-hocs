@@ -1,7 +1,6 @@
 type FlexProps = {
   as?: keyof JSX.IntrinsicElements;
   children: React.ReactNode;
-  props?: React.ReactNode;
   gap?: string | number;
   wrap?: "nowrap" | "wrap" | "wrap-reverse";
   direction?: "row" | "row-reverse" | "column" | "column-reverse";
@@ -9,6 +8,7 @@ type FlexProps = {
   align?: string;
   width?: number | string;
   className?: string;
+  props?: React.ReactNode;
 };
 
 const INTERNAL_CLASSES = "flex";
@@ -16,7 +16,6 @@ const INTERNAL_CLASSES = "flex";
 export default function Flex({
   as: Element = "div",
   children,
-  props,
   gap,
   wrap,
   direction,
@@ -24,6 +23,7 @@ export default function Flex({
   align,
   width,
   className,
+  ...props
 }: FlexProps) {
   return (
     <Element
@@ -36,6 +36,7 @@ export default function Flex({
         alignItems: align,
         width: width,
       }}
+      {...props}
     >
       {children}
     </Element>

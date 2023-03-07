@@ -4,14 +4,17 @@ import Footer from "../Footer";
 
 type withFlexboxProps = {
   children: React.ReactNode;
+  wrap?: "nowrap" | "wrap" | "wrap-reverse";
   props?: React.ReactNode;
 };
 
 function withFlexbox(WrapperComponent: React.ElementType) {
-  return ({ children, ...props }: withFlexboxProps) => {
+  return ({ children, wrap, ...props }: withFlexboxProps) => {
     return (
       <WrapperComponent>
-        <Flex {...props}>{children}</Flex>
+        <Flex wrap={wrap} {...props}>
+          {children}
+        </Flex>
       </WrapperComponent>
     );
   };
