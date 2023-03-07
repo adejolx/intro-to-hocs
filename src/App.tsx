@@ -1,7 +1,7 @@
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import BaseInput from "./components/BaseInput";
-import Footer from "./components/Footer";
+
 import { FlexFooter } from "./components/HOCs/FlexFooter";
 import InputContainer from "./components/InputContainer";
 
