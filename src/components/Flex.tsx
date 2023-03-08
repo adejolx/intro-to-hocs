@@ -1,4 +1,4 @@
-type FlexProps = {
+export type FlexProps = {
   as?: keyof JSX.IntrinsicElements;
   children: React.ReactNode;
   gap?: string | number;
