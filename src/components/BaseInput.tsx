@@ -1,12 +1,12 @@
 type BaseInputProps = {
-  type: React.HTMLInputTypeAttribute;
+  type?: React.HTMLInputTypeAttribute;
   name: string;
   value: string | number;
   label: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   onBlur: React.FocusEventHandler<HTMLInputElement>;
   willSubmit?: boolean;
-  // if willSubmit is supplied, supply button text
+  // if willSubmit is supplied, you may supply another button text
   submitButtonText?: string;
   placeholder: string;
   errorObj: Record<string, string>;
@@ -41,7 +41,7 @@ export default function BaseInput({
         />
         {willSubmit ? <button type="submit">{submitButtonText}</button> : null}
       </div>
-      {errorObj.name ? <div>{errorObj.name}</div> : null}
+      {errorObj[name] ? <div>{errorObj[name]}</div> : null}
     </div>
   );
 }
