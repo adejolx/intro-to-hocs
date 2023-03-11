@@ -1,44 +1,47 @@
 type BaseInputProps = {
-  type: React.HTMLInputTypeAttribute;
-  display: "block" | "inline" | "inline-block";
+  type?: React.HTMLInputTypeAttribute;
+  name: string;
+  value: string | number;
+  label: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
-  value: string;
-  size: { height: string; width: string };
-  validationRegex?: string;
+  onBlur: React.FocusEventHandler<HTMLInputElement>;
+  willSubmit?: boolean;
+  // if willSubmit is supplied, you may supply another button text
+  submitButtonText?: string;
   placeholder: string;
-  statusIcons?: string[];
-  statusMessage: React.ReactNode;
-  isVerifiable: boolean;
-  isShaded: boolean;
-  isTrimmable: boolean;
-  className: string;
+  errorObj: Record<string, string>;
 };
 
 const INTERNAL_CLASSES = "base-input";
 
 export default function BaseInput({
   type = "text",
-  display = "block",
-  onChange,
+  name,
   value,
-  size,
+  label,
+  onChange,
+  onBlur,
+  willSubmit,
+  submitButtonText = "verify",
   placeholder = "",
-  statusMessage,
-  isVerifiable = false,
-  isShaded = false,
-  isTrimmable = false,
-  className,
+  errorObj,
 }: BaseInputProps) {
   return (
-    <>
-      <input
-        className={INTERNAL_CLASSES + ` ` + className}
-        type={type}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        style={{ width: size.width, height: size.height, display: display }}
-      />
-    </>
+    <div>
+      <label htmlFor={name}>{label}</label>
+      <div>
+        <input
+          className={INTERNAL_CLASSES}
+          type={type}
+          name={name}
+          value={value}
+          onChange={onChange}
+          onBlur={onBlur}
+          placeholder={placeholder}
+        />
+        {willSubmit ? <button type="submit">{submitButtonText}</button> : null}
+      </div>
+      {errorObj[name] ? <div>{errorObj[name]}</div> : null}
+    </div>
   );
 }
