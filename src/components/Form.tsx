@@ -48,6 +48,8 @@ const SignupForm = () => {
           placeholder="Enter Email"
           errorObj={formik.errors}
           willSubmit={true}
+          isOptional={true}
+          options={{ minPayoutLimit: 23, maxPayoutLimit: 24, balance: 100 }}
         />
       </form>
     </>
