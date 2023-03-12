@@ -42,7 +42,10 @@ export default function BaseInput({
     <div>
       <div className="input-header">
         <label htmlFor={name}>
-          {label} {isOptional ? <span>{`(Optional)`}</span> : null}
+          {label}{" "}
+          {isOptional ? (
+            <span style={{ opacity: 0.4 }}>&nbsp;{`(Optional)`}</span>
+          ) : null}
         </label>
         {options?.maxPayoutLimit ? (
           <span className={`${errorObj[name] ? `red` : ""}`}>
