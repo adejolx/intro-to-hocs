@@ -47,9 +47,15 @@ const SignupForm = () => {
           onBlur={formik.handleBlur}
           placeholder="Enter Email"
           errorObj={formik.errors}
-          willSubmit={true}
+          // willSubmit={true}
           isOptional={true}
-          options={{ minPayoutLimit: 23, maxPayoutLimit: 24, balance: 100 }}
+          highlightError={true}
+          data={{
+            currency: "NGN",
+            minPayoutLimit: 23,
+            maxPayoutLimit: 24,
+            balance: 100,
+          }}
         />
       </form>
     </>
