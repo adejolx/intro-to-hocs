@@ -1,4 +1,5 @@
-type optionsProps = {
+type dataProps = {
+  currency?: "NGN" | "USD" | "KES" | "GHC";
   minPayoutLimit?: number | string;
   maxPayoutLimit?: number | string;
   balance?: number | string;
@@ -18,7 +19,7 @@ type BaseInputProps = {
   placeholder: string;
   errorObj: Record<string, string>;
   highlightError?: boolean;
-  options?: optionsProps;
+  data?: dataProps;
 };
 
 const INTERNAL_CLASSES = "base-input";
@@ -36,24 +37,34 @@ export default function BaseInput({
   placeholder = "",
   errorObj,
   highlightError = false,
-  options,
+  data,
 }: BaseInputProps) {
   return (
-    <div>
-      <div className="input-header">
-        <label htmlFor={name}>
+    <div className="stack-s input-group">
+      <div
+        className="input-header"
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <label htmlFor={name} style={{ margin: 0 }}>
           {label}{" "}
           {isOptional ? (
             <span style={{ opacity: 0.4 }}>&nbsp;{`(Optional)`}</span>
           ) : null}
         </label>
-        {options?.maxPayoutLimit ? (
+        {data?.maxPayoutLimit ? (
           <span className={`${errorObj[name] ? `red` : ""}`}>
-            Max. amount: {options?.maxPayoutLimit}NGN
+            Max. amount:
+            <span className="bold">
+              &nbsp;{data?.maxPayoutLimit}
+              {data?.currency}
+            </span>
           </span>
         ) : null}
       </div>
-      <div>
+      <div className="input-body">
         <input
           className={INTERNAL_CLASSES}
           type={type}
@@ -66,7 +77,7 @@ export default function BaseInput({
         {willSubmit ? <button type="submit">{submitButtonText}</button> : null}
       </div>
       <div className="input-footer">
-        {options?.minPayoutLimit && options?.balance ? (
+        {data?.minPayoutLimit && data?.balance ? (
           <div
             style={{
               display: "flex",
@@ -74,16 +85,31 @@ export default function BaseInput({
               alignItems: "center",
             }}
           >
-            <span>Minimum Amount: {options?.minPayoutLimit}</span>{" "}
-            <span>Available Balance{options?.balance}</span>
-          </div>
-        ) : null}
-        {errorObj[name] ? (
-          <div className={highlightError ? `highlight-error` : ``}>
-            {errorObj[name]}
+            <span>
+              Minimum Amount:
+              <span className="bold">
+                &nbsp;{data?.minPayoutLimit}
+                {data?.currency}
+              </span>
+            </span>
+            <span>
+              Available Balance:
+              <span className="bold">
+                &nbsp;{data?.balance}
+                {data?.currency}
+              </span>
+            </span>
           </div>
         ) : null}
       </div>
+      {errorObj[name] ? (
+        <div
+          style={{ color: "red" }}
+          className={highlightError ? `highlight-error` : ``}
+        >
+          {errorObj[name]}
+        </div>
+      ) : null}
     </div>
   );
 }
