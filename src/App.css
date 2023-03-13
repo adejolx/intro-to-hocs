@@ -20,6 +20,10 @@
   margin-top: 1rem;
 }
 
+.stack-l > * + * {
+  margin-top: 2.5rem;
+}
+
 .input-group {
   max-width: 30rem;
 }
@@ -38,9 +42,6 @@
   flex-basis: 30%;
 }
 
-.bold {
-  font-weight: 700;
-}
 /* Form
 ––––––––––––––––––––––––––––––––– */
 label {
