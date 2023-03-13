@@ -4,10 +4,10 @@ import InputGroup from "./InputGroup";
 const validate = (values: Record<string, string>) => {
   const errors: Record<string, React.ReactNode> = {};
 
-  const errorDiv = (verb: string, ...args: any): JSX.Element => {
+  const errorBlock = (verb: string, ...args: any): JSX.Element => {
     return (
       <p>
-        {verb} <span className="color:red bold">{args[0]}NGN</span>
+        {verb} <span className="bold">{args[0]}NGN</span>
       </p>
     );
   };
@@ -15,14 +15,14 @@ const validate = (values: Record<string, string>) => {
   if (!values.withdrawalAmount) {
     errors.withdrawalAmount = "Required";
   } else if (parseInt(values.withdrawalAmount) > 9999) {
-    errors.withdrawalAmount = errorDiv("Maximum withdrawal is", 9999);
+    errors.withdrawalAmount = errorBlock("Maximum withdrawal is", 9999);
   } else if (parseInt(values.withdrawalAmount) < 500) {
-    errors.withdrawalAmount = errorDiv("Minimum withdrawal is", 500);
+    errors.withdrawalAmount = errorBlock("Minimum withdrawal is", 500);
   }
 
   if (
     values.email &&
-    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email as string)
+    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
   ) {
     errors.email = "Invalid email address";
   }
@@ -60,6 +60,7 @@ const SignupForm = () => {
           onBlur={formik.handleBlur}
           placeholder="Enter Email"
           errorObj={formik.errors}
+          touchedObj={formik.touched}
           // willSubmit={true}
           isOptional={true}
         />
@@ -73,6 +74,7 @@ const SignupForm = () => {
           placeholder="Enter phone number"
           willSubmit={true}
           errorObj={formik.errors}
+          touchedObj={formik.touched}
         />
         <InputGroup
           type="text"
@@ -84,6 +86,7 @@ const SignupForm = () => {
           placeholder="Enter withdrawal amount"
           willSubmit={true}
           errorObj={formik.errors}
+          touchedObj={formik.touched}
           highlightError={true}
           data={{
             currency: "NGN",

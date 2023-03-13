@@ -17,7 +17,8 @@ type InputGroupProps = {
   // if willSubmit is supplied, you may supply another button text
   submitButtonText?: string;
   placeholder: string;
-  errorObj: Record<string, string>;
+  errorObj: Record<string, React.ReactNode>;
+  touchedObj: Record<string, boolean>;
   highlightError?: boolean;
   data?: dataProps;
 };
@@ -36,6 +37,7 @@ export default function InputGroup({
   submitButtonText = "verify",
   placeholder = "",
   errorObj,
+  touchedObj,
   highlightError = false,
   data,
 }: InputGroupProps) {
@@ -55,7 +57,11 @@ export default function InputGroup({
           ) : null}
         </label>
         {data?.maxPayoutLimit ? (
-          <span className={`${errorObj[name] ? `color:red` : ""}`}>
+          <span
+            className={`${
+              touchedObj[name] && errorObj[name] ? `color:red` : ""
+            }`}
+          >
             Max. amount:
             <span className="bold">
               &nbsp;{data?.maxPayoutLimit}
@@ -102,7 +108,7 @@ export default function InputGroup({
           </div>
         ) : null}
       </div>
-      {errorObj[name] ? (
+      {touchedObj[name] && errorObj[name] ? (
         <div
           style={{ color: "red" }}
           className={highlightError ? `highlight-error` : ``}
