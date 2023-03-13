@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import BaseInput from "./BaseInput";
+import InputGroup from "./InputGroup";
 
 const validate = (values: Record<string, string>) => {
   const errors: Record<string, string> = {};
@@ -43,7 +43,7 @@ const SignupForm = () => {
   return (
     <>
       <form onSubmit={formik.handleSubmit} className="stack-l">
-        <BaseInput
+        <InputGroup
           type="email"
           name="email"
           value={formik.values.email}
@@ -55,7 +55,7 @@ const SignupForm = () => {
           // willSubmit={true}
           isOptional={true}
         />
-        <BaseInput
+        <InputGroup
           type="text"
           name="phone"
           value={formik.values.phone}
@@ -66,7 +66,7 @@ const SignupForm = () => {
           willSubmit={true}
           errorObj={formik.errors}
         />
-        <BaseInput
+        <InputGroup
           type="text"
           name="withdrawalAmount"
           value={formik.values.withdrawalAmount}

@@ -5,7 +5,7 @@ type dataProps = {
   balance?: number | string;
 };
 
-type BaseInputProps = {
+type InputGroupProps = {
   type?: React.HTMLInputTypeAttribute;
   name: string;
   value: string | number;
@@ -24,7 +24,7 @@ type BaseInputProps = {
 
 const INTERNAL_CLASSES = "base-input";
 
-export default function BaseInput({
+export default function InputGroup({
   type = "text",
   name,
   value,
@@ -38,7 +38,7 @@ export default function BaseInput({
   errorObj,
   highlightError = false,
   data,
-}: BaseInputProps) {
+}: InputGroupProps) {
   return (
     <div className="stack-s input-group">
       <div
