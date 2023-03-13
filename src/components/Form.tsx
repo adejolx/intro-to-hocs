@@ -4,23 +4,25 @@ import BaseInput from "./BaseInput";
 const validate = (values: Record<string, string>) => {
   const errors: Record<string, string> = {};
 
-  if (!values.firstName) {
-    errors.firstName = "Required";
-  } else if (values.firstName.length > 15) {
-    errors.firstName = "Must be 15 characters or less";
-  }
-
-  if (!values.lastName) {
-    errors.lastName = "Required";
-  } else if (values.lastName.length > 20) {
-    errors.lastName = "Must be 20 characters or less";
+  if (!values.withdrawalAmount) {
+    errors.withdrawalAmount = "Required";
+  } else if (parseInt(values.withdrawalAmount) > 9999) {
+    errors.withdrawalAmount = " Withdrawals cannot exceed 9999NGN";
+  } else if (parseInt(values.withdrawalAmount) < 500) {
+    errors.withdrawalAmount = "Withdrawals cannot exceed 500NGN";
   }
 
   if (
     values.email &&
-    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email as string)
   ) {
     errors.email = "Invalid email address";
+  }
+
+  if (!values.phone) {
+    errors.phone = "Required";
+  } else if (typeof values.phone === "string" && values.phone.length !== 11) {
+    errors.phone = "Must be 11 characters";
   }
 
   return errors;
@@ -30,6 +32,8 @@ const SignupForm = () => {
   const formik = useFormik({
     initialValues: {
       email: "",
+      phone: "",
+      withdrawalAmount: "",
     },
     validate,
     onSubmit: (values) => {
@@ -38,7 +42,7 @@ const SignupForm = () => {
   });
   return (
     <>
-      <form onSubmit={formik.handleSubmit}>
+      <form onSubmit={formik.handleSubmit} className="stack-l">
         <BaseInput
           type="email"
           name="email"
@@ -50,12 +54,34 @@ const SignupForm = () => {
           errorObj={formik.errors}
           // willSubmit={true}
           isOptional={true}
+        />
+        <BaseInput
+          type="text"
+          name="phone"
+          value={formik.values.phone}
+          label="Phone number"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          placeholder="Enter phone number"
+          willSubmit={true}
+          errorObj={formik.errors}
+        />
+        <BaseInput
+          type="text"
+          name="withdrawalAmount"
+          value={formik.values.withdrawalAmount}
+          label="Withdraw"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          placeholder="Enter withdrawal amount"
+          willSubmit={true}
+          errorObj={formik.errors}
           highlightError={true}
           data={{
             currency: "NGN",
-            minPayoutLimit: 23,
-            maxPayoutLimit: 24,
-            balance: 100,
+            minPayoutLimit: 500,
+            maxPayoutLimit: 9999,
+            balance: 10000,
           }}
         />
       </form>
