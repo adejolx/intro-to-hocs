@@ -55,7 +55,7 @@ export default function InputGroup({
           ) : null}
         </label>
         {data?.maxPayoutLimit ? (
-          <span className={`${errorObj[name] ? `red` : ""}`}>
+          <span className={`${errorObj[name] ? `color:red` : ""}`}>
             Max. amount:
             <span className="bold">
               &nbsp;{data?.maxPayoutLimit}

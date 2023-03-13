@@ -42,6 +42,13 @@
   flex-basis: 30%;
 }
 
+.color\:red {
+  color: red;
+}
+.bold {
+  font-weight: 600;
+}
+
 /* Form
 ––––––––––––––––––––––––––––––––– */
 label {

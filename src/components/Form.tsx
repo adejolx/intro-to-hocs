@@ -2,14 +2,22 @@ import { useFormik } from "formik";
 import InputGroup from "./InputGroup";
 
 const validate = (values: Record<string, string>) => {
-  const errors: Record<string, string> = {};
+  const errors: Record<string, React.ReactNode> = {};
+
+  const errorDiv = (verb: string, ...args: any): JSX.Element => {
+    return (
+      <p>
+        {verb} <span className="color:red bold">{args[0]}NGN</span>
+      </p>
+    );
+  };
 
   if (!values.withdrawalAmount) {
     errors.withdrawalAmount = "Required";
   } else if (parseInt(values.withdrawalAmount) > 9999) {
-    errors.withdrawalAmount = " Withdrawals cannot exceed 9999NGN";
+    errors.withdrawalAmount = errorDiv("Maximum withdrawal is", 9999);
   } else if (parseInt(values.withdrawalAmount) < 500) {
-    errors.withdrawalAmount = "Withdrawals cannot exceed 500NGN";
+    errors.withdrawalAmount = errorDiv("Minimum withdrawal is", 500);
   }
 
   if (
